@@ -1,9 +1,10 @@
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
+import {Button, Container} from '@mui/material';
 
 export default function Home() {
   return (
-    <div>
+    <Container sx={{height: 800, backgroundColor: 'lightBlue'}}>
       <Button variant="contained">Hello Smiley!!!</Button>
-    </div>
+    </Container>
   );
 }
