@@ -6,13 +6,12 @@ import SimpleCard from '@/components/Card';
 export default function Home() {
   const theme = useTheme();
   return (
-    <Container sx={{backgroundColor: 'lightBlue', paddingBottom: 10}}>
-      <Button variant="contained">Hello Smiley!!!</Button>
+    <Container sx={{paddingBottom: 10, paddingTop: 10, backgroundColor: 'lightblue'}}>
       <Typography variant="h1" align="center" sx={{marginBottom: 10}}>
         This is a title using a heading
       </Typography>
       <Box marginBottom={7}>
-        <Typography variant="body1">
+        <Typography variant="body1" color="text.secondary">
           Tofu irony truffaut tonx pug pinterest fit leggings prism cred single-origin coffee
           gatekeep kogi pork belly asymmetrical. Venmo single-origin coffee next level wolf fanny
           pack, salvia blue bottle YOLO kinfolk selfies subway tile fixie vegan. Fam hexagon
