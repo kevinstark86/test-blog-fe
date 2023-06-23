@@ -1,7 +1,9 @@
 // import Button from '@mui/material/Button';
 import {Button, Container, Typography} from '@mui/material';
+import {useTheme} from '@mui/material/styles';
 
 export default function Home() {
+  const theme = useTheme();
   return (
     <Container sx={{height: 800, backgroundColor: 'lightBlue'}}>
       <Button variant="contained">Hello Smiley!!!</Button>
