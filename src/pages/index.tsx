@@ -6,7 +6,7 @@ import SimpleCard from '@/components/Card';
 export default function Home() {
   const theme = useTheme();
   return (
-    <Container sx={{paddingBottom: 10, paddingTop: 10, backgroundColor: 'lightblue'}}>
+    <Container sx={{paddingBottom: 10, paddingTop: 10, backgroundColor: 'lightskyblue'}}>
       <Typography variant="h1" align="center" sx={{marginBottom: 10}}>
         This is a title using a heading
       </Typography>
