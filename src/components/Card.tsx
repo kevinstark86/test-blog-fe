@@ -2,7 +2,7 @@ import {Card, CardContent, Typography, CardActions, Button} from '@mui/material'
 
 export default function SimpleCard() {
   return (
-    <Card>
+    <Card variant="outlined">
       <CardContent>
         <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
           Word of the day
