@@ -1,6 +1,7 @@
 // import Button from '@mui/material/Button';
 import {Button, Container, Typography} from '@mui/material';
 import {useTheme} from '@mui/material/styles';
+import SimpleCard from '@/components/Card';
 
 export default function Home() {
   const theme = useTheme();
@@ -19,6 +20,7 @@ export default function Home() {
         enamel pin kale chips plaid taxidermy post-ironic small batch cray authentic. Ennui paleo
         Brooklyn small batch asymmetrical tattooed cornhole jean shorts hammock.
       </Typography>
+      <SimpleCard />
     </Container>
   );
 }
