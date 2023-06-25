@@ -1,34 +1,30 @@
 import {useRouter} from 'next/router';
 
-import {
-  Card,
-  CardContent,
-  Typography,
-  CardActions,
-  CardActionArea,
-  Button,
-  CardMedia,
-} from '@mui/material';
+import {Card, CardContent, Typography, CardActions, Grid, Button, CardMedia} from '@mui/material';
 
-export default function SimpleCard() {
+type CardProps = {
+  id: string;
+  title: string;
+};
+
+export default function SimpleCard({id, title}: CardProps) {
   const router = useRouter();
 
   const handleClick = (): void => {
-    router.push('/post');
+    router.push(`/${id}`);
   };
 
   return (
-    <Card variant="outlined">
-      <CardActionArea onClick={handleClick}>
+    <Grid item xs={12} md={6} lg={4}>
+      <Card variant="outlined">
         <CardMedia sx={{height: 240}} image="./images/test-img.jpg" />
-
         <CardContent>
           <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
             Word of the day
           </Typography>
-          <Typography variant="h5">Smileeeh</Typography>
+          <Typography variant="h5">{title}</Typography>
           <Typography variant="body2" color="text.secondary">
-            A sensational dog that lives on the beach.
+            Some test words for a card
           </Typography>
         </CardContent>
         <CardActions>
@@ -36,7 +32,7 @@ export default function SimpleCard() {
             Learn More
           </Button>
         </CardActions>
-      </CardActionArea>
-    </Card>
+      </Card>
+    </Grid>
   );
 }

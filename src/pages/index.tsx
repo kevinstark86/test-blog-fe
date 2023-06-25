@@ -1,10 +1,20 @@
-// import Button from '@mui/material/Button';
-import {Button, Container, Typography, Box, Grid} from '@mui/material';
-import {useTheme} from '@mui/material/styles';
+import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
+import {Container, Typography, Box, Grid} from '@mui/material';
 import SimpleCard from '@/components/Card';
 
-export default function Home() {
-  const theme = useTheme();
+type PostsApiData = {
+  docs: [];
+};
+
+export const getServerSideProps: GetServerSideProps<{postApi: PostsApiData}> = async () => {
+  const res = await fetch('https://payload-cms-test-production.up.railway.app/api/posts');
+  const postApi = await res.json();
+  return {props: {postApi}};
+};
+
+export default function Home({postApi}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log(postApi);
+  const data = postApi.docs;
   return (
     <Container sx={{paddingBottom: 10, paddingTop: 10, backgroundColor: 'lightskyblue'}}>
       <Typography variant="h1" align="center" sx={{marginBottom: 10}}>
@@ -23,24 +33,10 @@ export default function Home() {
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={4}>
-          <SimpleCard />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <SimpleCard />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <SimpleCard />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <SimpleCard />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <SimpleCard />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <SimpleCard />
-        </Grid>
+        {data.map(post => {
+          const {title, id} = post;
+          return <SimpleCard key={id} id={id} title={title} />;
+        })}
       </Grid>
     </Container>
   );
