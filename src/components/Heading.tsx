@@ -6,5 +6,9 @@ type HeadingType = {
 };
 export default function Heading(props: HeadingType) {
   const {type, content} = props;
-  return <Typography variant={type}>{content}</Typography>;
+  return (
+    <Typography variant={type} sx={{marginBottom: 1, paddingTop: 1}}>
+      {content}
+    </Typography>
+  );
 }
