@@ -13,7 +13,6 @@ export const getServerSideProps: GetServerSideProps<{postApi: PostsApiData}> = a
 };
 
 export default function Home({postApi}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(postApi);
   const data = postApi.docs;
   return (
     <Container sx={{paddingBottom: 10, paddingTop: 10, backgroundColor: 'lightskyblue'}}>
