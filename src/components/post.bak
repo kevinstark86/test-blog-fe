@@ -1,0 +1,28 @@
+{postData.content.map((item, index) => {
+        const {text} = item.children[0];
+        if (item.type) {
+          const {type} = item;
+          return <Heading key={index} type={type} content={text} />;
+        }
+        if (item.type === 'link') {
+          const {url} = item.children;
+          return (
+            <HyperLink key={index} url={url}>
+              {text}
+            </HyperLink>
+          );
+        }
+        return <TextParagraph key={index} content={text} />;
+      })}
+
+      if (item.children.length > 1) {
+                return item.children.map((child, i) => {
+                  if (child.type === 'link') {
+                    return (
+                      <Link key={i} href={child.url}>
+                        {child.children[0].text}
+                      </Link>
+                    );
+                  }
+                  return null;
+                });

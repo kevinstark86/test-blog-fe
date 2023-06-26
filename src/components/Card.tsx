@@ -18,7 +18,7 @@ export default function SimpleCard({id, title, img}: CardProps) {
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Card variant="outlined">
-        <CardMedia sx={{height: 240}} src={img} />
+        <CardMedia sx={{height: 240}} image={img} />
         <CardContent>
           <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
             Word of the day
