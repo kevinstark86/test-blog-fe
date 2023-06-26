@@ -21,7 +21,7 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
   return (
     <Container
       sx={{
-        height: '100vh',
+        minHeight: '100vh',
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: 'lightsalmon',
