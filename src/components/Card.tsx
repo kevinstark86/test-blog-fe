@@ -5,9 +5,10 @@ import {Card, CardContent, Typography, CardActions, Grid, Button, CardMedia} fro
 type CardProps = {
   id: string;
   title: string;
+  img: string;
 };
 
-export default function SimpleCard({id, title}: CardProps) {
+export default function SimpleCard({id, title, img}: CardProps) {
   const router = useRouter();
 
   const handleClick = (): void => {
@@ -17,7 +18,7 @@ export default function SimpleCard({id, title}: CardProps) {
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Card variant="outlined">
-        <CardMedia sx={{height: 240}} image="./images/test-img.jpg" />
+        <CardMedia sx={{height: 240}} src={img} />
         <CardContent>
           <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
             Word of the day
