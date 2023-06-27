@@ -51,39 +51,39 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
           );
         }
         if (item.children.length > 1) {
-          return item.children.map((child, i) => {
-            if (!child.type) {
-              return (
-                <Typography key={i} variant="body1" sx={{marginBottom: 2}}>
-                  {child.text}
-                </Typography>
-              );
-            }
-            if (child.type === 'link') {
-              return (
-                <Link key={i} href={child.url}>
-                  {child.children[0].text}
-                </Link>
-              );
-            }
-            if (item.type === 'ol') {
-              return (
-                <List sx={{listStyleType: 'disc', pl: 4}}>
-                  {item.children.map((listItem, itemIndex) => {
-                    if (listItem.type === 'li') {
-                      return (
-                        <ListItem key={itemIndex} sx={{display: 'list-item'}}>
-                          {listItem.children[0].text}
-                        </ListItem>
-                      );
-                    }
-                    return null;
-                  })}
-                </List>
-              );
-            }
-            return null;
-          });
+          return (
+            <Typography paragraph>
+              {item.children.map((child, i) => {
+                if (!child.type) {
+                  return child.text;
+                }
+                if (child.type === 'link') {
+                  return (
+                    <Link key={i} href={child.url}>
+                      {child.children[0].text}
+                    </Link>
+                  );
+                }
+                if (item.type === 'ol') {
+                  return (
+                    <List sx={{listStyleType: 'disc', pl: 4}}>
+                      {item.children.map((listItem, itemIndex) => {
+                        if (listItem.type === 'li') {
+                          return (
+                            <ListItem key={itemIndex} sx={{display: 'list-item'}}>
+                              {listItem.children[0].text}
+                            </ListItem>
+                          );
+                        }
+                        return null;
+                      })}
+                    </List>
+                  );
+                }
+                return null;
+              })}
+            </Typography>
+          );
         }
         return (
           <Typography key={index} variant="body1" sx={{marginBottom: 2}}>
