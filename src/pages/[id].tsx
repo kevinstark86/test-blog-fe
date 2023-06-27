@@ -1,27 +1,17 @@
 import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
-import {Container, Typography, Link, ListItem, List} from '@mui/material';
+import {Container} from '@mui/material';
+import TextParser from '@/rich-text-parser/TextParser';
+import {RichTextNode} from '@/types/types';
+
+type PostType = {
+  content: RichTextNode;
+};
 
 export const getServerSideProps: GetServerSideProps<{postData: PostType}> = async context => {
   const {id} = context.params as {id: string};
   const res = await fetch(`https://payload-cms-test-production.up.railway.app/api/posts/${id}`);
   const postData = await res.json();
   return {props: {postData}};
-};
-
-type ChildType = {
-  text: string;
-  type?: 'link' | 'li' | 'ul' | 'ol';
-  url?: string;
-  children: ChildType[];
-};
-
-type ContentType = {
-  type?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'ol' | 'ul' | 'link' | 'li';
-  url?: string;
-  children: ChildType[];
-};
-type PostType = {
-  content: ContentType[];
 };
 
 export default function Post({postData}: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -34,63 +24,7 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
         backgroundColor: 'lightsalmon',
       }}
     >
-      {postData.content.map((item, index) => {
-        const {text} = item.children[0];
-        if (
-          item.type === 'h1' ||
-          item.type === 'h2' ||
-          item.type === 'h3' ||
-          item.type === 'h4' ||
-          item.type === 'h5' ||
-          item.type === 'h6'
-        ) {
-          return (
-            <Typography key={index} variant={item.type} sx={{marginBottom: 3, marginTop: 3}}>
-              {text}
-            </Typography>
-          );
-        }
-        if (item.children.length > 1) {
-          return (
-            <Typography paragraph>
-              {item.children.map((child, i) => {
-                if (!child.type) {
-                  return child.text;
-                }
-                if (child.type === 'link') {
-                  return (
-                    <Link key={i} href={child.url}>
-                      {child.children[0].text}
-                    </Link>
-                  );
-                }
-                if (item.type === 'ol') {
-                  return (
-                    <List sx={{listStyleType: 'disc', pl: 4}}>
-                      {item.children.map((listItem, itemIndex) => {
-                        if (listItem.type === 'li') {
-                          return (
-                            <ListItem key={itemIndex} sx={{display: 'list-item'}}>
-                              {listItem.children[0].text}
-                            </ListItem>
-                          );
-                        }
-                        return null;
-                      })}
-                    </List>
-                  );
-                }
-                return null;
-              })}
-            </Typography>
-          );
-        }
-        return (
-          <Typography key={index} variant="body1" sx={{marginBottom: 2}}>
-            {text}
-          </Typography>
-        );
-      })}
+      <TextParser content={postData.content} />
     </Container>
   );
 }
