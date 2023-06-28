@@ -1,7 +1,14 @@
 import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import {Container} from '@mui/material';
 import TextParser from '@/rich-text-parser/TextParser';
-import {RichTextNode} from '@/types/types';
+
+type RichTextNode = {
+  text?: string;
+  type?: string;
+  linkType?: string;
+  url?: string | undefined;
+  children?: RichTextNode[];
+};
 
 type PostType = {
   content: RichTextNode;
