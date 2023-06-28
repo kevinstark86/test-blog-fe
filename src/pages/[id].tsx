@@ -22,6 +22,7 @@ export const getServerSideProps: GetServerSideProps<{postData: PostType}> = asyn
 };
 
 export default function Post({postData}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  // @ts-ignore
   return (
     <Container
       sx={{
@@ -31,6 +32,7 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
         backgroundColor: 'lightsalmon',
       }}
     >
+      {/* @ts-ignore */}
       <TextParser content={postData.content} />
     </Container>
   );

@@ -1,14 +1,10 @@
 import {Typography, Link, List, ListItem} from '@mui/material';
 import {Variant} from '@mui/material/styles/createTypography';
+import escapeHTML from 'escape-html';
 import {Text} from 'slate';
+import {Fragment} from 'react';
+import {RichTextNode} from '@/types/types';
 
-type RichTextNode = {
-  text?: string;
-  type?: string;
-  linkType?: string;
-  url?: string | undefined;
-  children?: RichTextNode[];
-};
 type NodeTypes = {
   content: RichTextNode[];
 };
@@ -25,16 +21,16 @@ export default function TextParser({content}: NodeTypes) {
           let text = (
             <span key={index} dangerouslySetInnerHTML={{__html: replaceEscapes(node.text)}} />
           );
-        }
-        if (!node.type) {
-          return node.text;
-        }
-        if (Object.keys(node).length === 1) {
-          return (
-            <Typography key={index} variant="body1">
-              {node.text}
-            </Typography>
-          );
+          if (node.bold) {
+            text = <strong key={index}>{text}</strong>;
+          }
+          if (node.code) {
+            text = <code key={index}>{text}</code>;
+          }
+          if (node.italic) {
+            text = <em key={index}>{text}</em>;
+          }
+          return <Fragment key={index}>{text}</Fragment>;
         }
 
         switch (node.type) {
@@ -45,7 +41,11 @@ export default function TextParser({content}: NodeTypes) {
           case 'h5':
           case 'h6':
             return (
-              <Typography key={index} variant={node.type as Variant}>
+              <Typography
+                key={index}
+                variant={node.type as Variant}
+                sx={{marginTop: 3, marginBottom: 3}}
+              >
                 <TextParser content={node.children} />
               </Typography>
             );
@@ -59,22 +59,20 @@ export default function TextParser({content}: NodeTypes) {
             return (
               <ListItem key={index} sx={{display: 'list-item'}}>
                 <Typography key={index} variant="body1" component="span">
-                  {node.text}
                   <TextParser content={node.children} />
                 </Typography>
               </ListItem>
             );
           case 'link':
             return (
-              <Link href={node.url} key={index}>
-                {node.text}
+              <Link href={escapeHTML(node.url)} key={index}>
                 <TextParser content={node.children} />
               </Link>
             );
           default:
             return (
-              <Typography key={index} variant="body1">
-                {node.text}
+              <Typography key={index} variant="body1" sx={{marginBottom: 2}}>
+                <TextParser content={node.children} />
               </Typography>
             );
         }
