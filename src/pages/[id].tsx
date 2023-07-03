@@ -2,6 +2,7 @@ import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import {Container, Box, Button, Typography} from '@mui/material';
 import TextParser from '@/rich-text-parser/TextParser';
 import Gravatar from '@/components/Gravatar';
+import dateFormatter from '@/utils/dateFormatter';
 import {TagsNode} from '@/types/types';
 
 type RichTextNode = {
@@ -34,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<{postData: PostType}> = asyn
 };
 
 export default function Post({postData}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {name, email} = postData.author;
+  const {name, email, createdAt} = postData.author;
   return (
     <Container
       sx={{
@@ -47,6 +48,9 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
       {/* @ts-ignore */}
       <TextParser content={postData.content} />
       <Box sx={{marginTop: 10, marginBottom: 10}}>
+        <Typography variant="body1" sx={{marginBottom: 3}}>
+          Posted created by {name} on {dateFormatter(createdAt)}
+        </Typography>
         <Gravatar email={email} size={100} />
         <Typography variant="body1">{name}</Typography>
       </Box>
