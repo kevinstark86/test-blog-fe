@@ -2,7 +2,7 @@ import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import {Container, Box, Button, Typography} from '@mui/material';
 import TextParser from '@/rich-text-parser/TextParser';
 import {TagsNode} from '@/types/types';
-import {flexbox} from '@mui/system';
+import crypto from 'crypto';
 
 type RichTextNode = {
   text?: string;
@@ -12,9 +12,18 @@ type RichTextNode = {
   children?: RichTextNode[];
 };
 
+type Author = {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 type PostType = {
   content: RichTextNode;
   tags: TagsNode[];
+  author: Author;
 };
 
 export const getServerSideProps: GetServerSideProps<{postData: PostType}> = async context => {
@@ -25,6 +34,7 @@ export const getServerSideProps: GetServerSideProps<{postData: PostType}> = asyn
 };
 
 export default function Post({postData}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const {name, email, createdAt} = postData.author;
   return (
     <Container
       sx={{
