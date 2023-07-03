@@ -1,4 +1,4 @@
-import {Typography, Link, List, ListItem} from '@mui/material';
+import {Typography, Link, List, ListItem, Box} from '@mui/material';
 import {Variant} from '@mui/material/styles/createTypography';
 import escapeHTML from 'escape-html';
 import {Text} from 'slate';
@@ -49,6 +49,14 @@ export default function TextParser({content}: NodeTypes) {
                 <TextParser content={node.children} />
               </Typography>
             );
+          case 'code':
+            return (
+              <Box component="pre" key={index}>
+                <code>
+                  <TextParser content={node.children} />
+                </code>
+              </Box>
+            );
           case 'ol':
             return (
               <List key={index} sx={{listStyleType: 'disc', pl: 4}}>
@@ -64,6 +72,7 @@ export default function TextParser({content}: NodeTypes) {
               </ListItem>
             );
           case 'link':
+            // @ts-ignore
             return (
               <Link href={escapeHTML(node.url)} key={index}>
                 <TextParser content={node.children} />

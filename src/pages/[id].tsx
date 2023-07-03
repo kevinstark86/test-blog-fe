@@ -1,6 +1,8 @@
 import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
-import {Container} from '@mui/material';
+import {Container, Box, Button, Typography} from '@mui/material';
 import TextParser from '@/rich-text-parser/TextParser';
+import {TagsNode} from '@/types/types';
+import {flexbox} from '@mui/system';
 
 type RichTextNode = {
   text?: string;
@@ -12,6 +14,7 @@ type RichTextNode = {
 
 type PostType = {
   content: RichTextNode;
+  tags: TagsNode[];
 };
 
 export const getServerSideProps: GetServerSideProps<{postData: PostType}> = async context => {
@@ -22,7 +25,6 @@ export const getServerSideProps: GetServerSideProps<{postData: PostType}> = asyn
 };
 
 export default function Post({postData}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // @ts-ignore
   return (
     <Container
       sx={{
@@ -34,6 +36,15 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
     >
       {/* @ts-ignore */}
       <TextParser content={postData.content} />
+      <Box sx={{marginTop: 10}}>
+        <Typography variant="body1">Tags:</Typography>
+        {postData.tags &&
+          postData.tags.map((tag, index) => (
+            <Button key={index} size="small">
+              {tag.name}
+            </Button>
+          ))}
+      </Box>
     </Container>
   );
 }
