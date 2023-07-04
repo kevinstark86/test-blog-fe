@@ -11,7 +11,7 @@ type RichTextNode = {
 export default function wordCounter(content: RichTextNode[]): string {
   let combinedString = '';
 
-  content.forEach(node => {
+  content?.forEach(node => {
     if (Text.isText(node)) {
       combinedString += ` ${node.text}`;
     } else {

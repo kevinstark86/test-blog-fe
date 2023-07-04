@@ -12,6 +12,14 @@ export type RichTextNode = {
   value?: PayloadMedia;
 };
 
+export type Author = {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type TagsNode = {
   id: string;
   name: string;

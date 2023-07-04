@@ -37,8 +37,21 @@ export default function Home({postApi}: InferGetServerSidePropsType<typeof getSe
             title,
             id,
             featuredImage: {url},
+            publishedDate,
+            author,
+            content,
           } = post;
-          return <SimpleCard key={id} id={id} title={title} img={url} />;
+          return (
+            <SimpleCard
+              key={id}
+              id={id}
+              title={title}
+              img={url}
+              publishedDate={publishedDate}
+              author={author}
+              content={content}
+            />
+          );
         })}
       </Grid>
     </Container>
