@@ -3,6 +3,8 @@ import {Container, Box, Button, Typography} from '@mui/material';
 import TextParser from '@/rich-text-parser/TextParser';
 import Gravatar from '@/components/Gravatar';
 import dateFormatter from '@/utils/dateFormatter';
+import readingTime from 'reading-time';
+import wordCounter from '@/utils/wordCounter';
 import {TagsNode} from '@/types/types';
 
 type RichTextNode = {
@@ -36,6 +38,12 @@ export const getServerSideProps: GetServerSideProps<{postData: PostType}> = asyn
 
 export default function Post({postData}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {name, email, createdAt} = postData.author;
+  // @ts-ignore
+  const stats = wordCounter(postData.content);
+  console.log('stats here', stats);
+  // console.log('here are the stats', stats);
+  // const stats = readingTime(totalWords);
+
   return (
     <Container
       sx={{

@@ -26,3 +26,38 @@
                   }
                   return null;
                 });
+
+
+
+
+                content.map(node => {
+                    if (Text.isText(node)) {
+                      combinedString += ` ${node.text}`;
+                      return combinedString;
+                    }
+                    switch (node.type) {
+                      case 'h1':
+                      case 'h2':
+                      case 'h3':
+                      case 'h4':
+                      case 'h5':
+                      case 'h6':
+                        // @ts-ignore
+                        return wordCounter(node.children);
+                      case 'code':
+                        // @ts-ignore
+                        return wordCounter(node.children);
+                      case 'ol':
+                        // @ts-ignore
+                        return wordCounter(node.children);
+                      case 'li':
+                        // @ts-ignore
+                        return wordCounter(node.children);
+                      case 'link':
+                        // @ts-ignore
+                        return wordCounter(node.children);
+                      default:
+                        // @ts-ignore
+                        return wordCounter(node.children);
+                    }
+                  });
