@@ -8,32 +8,16 @@ type RichTextNode = {
   children: RichTextNode[];
 };
 
-export default function wordCounter(content: RichTextNode[]) {
+export default function wordCounter(content: RichTextNode[]): string {
   let combinedString = '';
-  content.map(node => {
+
+  content.forEach(node => {
     if (Text.isText(node)) {
       combinedString += ` ${node.text}`;
-      return combinedString;
-    }
-    switch (node.type) {
-      case 'h1':
-      case 'h2':
-      case 'h3':
-      case 'h4':
-      case 'h5':
-      case 'h6':
-        return wordCounter(node.children);
-      case 'code':
-        return wordCounter(node.children);
-      case 'ol':
-        return wordCounter(node.children);
-      case 'li':
-        return wordCounter(node.children);
-      case 'link':
-        return wordCounter(node.children);
-      default:
-        return wordCounter(node.children);
+    } else {
+      combinedString += ` ${wordCounter(node.children)}`;
     }
   });
+
   return combinedString;
 }

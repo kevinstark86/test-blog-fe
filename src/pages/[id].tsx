@@ -40,9 +40,8 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
   const {name, email, createdAt} = postData.author;
   // @ts-ignore
   const stats = wordCounter(postData.content);
-  console.log('stats here', stats);
-  // console.log('here are the stats', stats);
-  // const stats = readingTime(totalWords);
+  const time = readingTime(stats);
+  console.log('reading time info', time);
 
   return (
     <Container
@@ -53,6 +52,11 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
         backgroundColor: 'lightsalmon',
       }}
     >
+      <Box sx={{marginBottom: 5}}>
+        <Typography>
+          {dateFormatter(createdAt)} ---- {time.text}
+        </Typography>
+      </Box>
       {/* @ts-ignore */}
       <TextParser content={postData.content} />
       <Box sx={{marginTop: 10, marginBottom: 10}}>
