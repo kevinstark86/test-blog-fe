@@ -18,6 +18,7 @@ export interface MyAppProps extends AppProps {
 
 export default function MyApp(props: MyAppProps) {
   const {Component, emotionCache = clientSideEmotionCache, pageProps} = props;
+  // @ts-ignore
   return (
     <Provider store={store}>
       <CacheProvider value={emotionCache}>

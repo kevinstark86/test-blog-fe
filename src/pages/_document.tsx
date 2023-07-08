@@ -36,7 +36,7 @@ export default function MyDocument({emotionStyleTags}: MyDocumentProps) {
 }
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
-// it's compatible with static-site generation (SSG).
+// it's compatible with static.tsx-site generation (SSG).
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Resolution order
   //

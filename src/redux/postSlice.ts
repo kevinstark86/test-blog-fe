@@ -51,5 +51,7 @@ export const postSlice = createSlice({
   },
 });
 
+export const {rehydrate} = postSlice.actions;
+
 export const selectPosts = (state: RootState) => state.posts.data;
 export default postSlice.reducer;
