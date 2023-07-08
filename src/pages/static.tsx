@@ -1,8 +1,19 @@
 import type {InferGetStaticPropsType, GetStaticProps} from 'next';
-import {Box, Container, Typography} from '@mui/material';
+import {useState} from 'react';
+import {Box, Container, Typography, Grid} from '@mui/material';
+import SimpleCard from '@/components/Card';
 
+type PostTags = {
+  id: string;
+  name: string;
+};
+type PostData = {
+  id: string;
+  title: string;
+  tags: PostTags[];
+};
 type BlogData = {
-  docs: [];
+  docs: PostData[];
 };
 
 export const getStaticProps: GetStaticProps<{data: BlogData}> = async () => {
@@ -12,7 +23,11 @@ export const getStaticProps: GetStaticProps<{data: BlogData}> = async () => {
 };
 
 export default function Static({data}: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('here are static post data', data);
+  const [selectedTag, setSelectedTag] = useState('');
+  const filteredPost = data.docs.filter(
+    item => !selectedTag! || (item.tags && item.tags.some(tag => tag.name === selectedTag))
+  );
+
   return (
     <Container sx={{paddingTop: 10, paddingBottom: 10, backgroundColor: 'lightskyblue'}}>
       <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -20,6 +35,29 @@ export default function Static({data}: InferGetStaticPropsType<typeof getStaticP
           Static Site Generation
         </Typography>
       </Box>
+      <Grid container spacing={2}>
+        {filteredPost.map(post => {
+          const {
+            title,
+            id,
+            featuredImage: {url},
+            publishedDate,
+            author,
+            content,
+          } = post;
+          return (
+            <SimpleCard
+              key={id}
+              id={id}
+              title={title}
+              img={url}
+              publishedDate={publishedDate}
+              author={author}
+              content={content}
+            />
+          );
+        })}
+      </Grid>
     </Container>
   );
 }

@@ -1,0 +1,6 @@
+export default function Static({data}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [selectedTag, setSelectedTag] = useState('');
+  const filteredPost = data.docs.filter(
+    item => item.tags && item.tags.some(tag => tag.name === selectedTag)
+  );
+
