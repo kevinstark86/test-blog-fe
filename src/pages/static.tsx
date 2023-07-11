@@ -49,37 +49,47 @@ export default function Static({data, postTags}: InferGetStaticPropsType<typeof 
         <Button size="small" onClick={allPostHandler}>
           All Posts
         </Button>
-        {postTags.docs.map(tag => {
-          const {id, name} = tag;
-          return (
-            <Button key={id} value={name} size="small" onClick={onTagClickHandler}>
-              {name}
-            </Button>
-          );
-        })}
+        {
+          // @ts-ignore
+          postTags.docs.map(tag => {
+            const {id, name} = tag;
+            return (
+              <Button key={id} value={name} size="small" onClick={onTagClickHandler}>
+                {name}
+              </Button>
+            );
+          })
+        }
       </Box>
       <Grid container spacing={2}>
-        {filteredPost.map(post => {
-          const {
-            title,
-            id,
-            featuredImage: {url},
-            publishedDate,
-            author,
-            content,
-          } = post;
-          return (
-            <SimpleCard
-              key={id}
-              id={id}
-              title={title}
-              img={url}
-              publishedDate={publishedDate}
-              author={author}
-              content={content}
-            />
-          );
-        })}
+        {
+          // need to set up types properly
+          filteredPost.map(post => {
+            const {
+              title,
+              id,
+              // @ts-ignore
+              featuredImage: {url},
+              // @ts-ignore
+              publishedDate,
+              // @ts-ignore
+              author,
+              // @ts-ignore
+              content,
+            } = post;
+            return (
+              <SimpleCard
+                key={id}
+                id={id}
+                title={title}
+                img={url}
+                publishedDate={publishedDate}
+                author={author}
+                content={content}
+              />
+            );
+          })
+        }
       </Grid>
     </Container>
   );
