@@ -19,8 +19,8 @@ export const blogApi = createApi({
     baseUrl: 'https://payload-cms-test-production.up.railway.app/api/',
   }),
   endpoints: builder => ({
-    getAllPosts: builder.query<Posts, void>({
-      query: () => `posts`,
+    getAllPosts: builder.query<Posts, number>({
+      query: (page = 1) => `posts?limit=6&page=${page}`,
     }),
   }),
 });

@@ -1,13 +1,20 @@
+import {useState} from 'react';
 import {useGetAllPostsQuery} from '@/redux/services/postAPi';
 import SimpleCard from '@/components/Card';
 import {Box, CircularProgress, Grid, Typography, Button} from '@mui/material';
 
 export default function PostList() {
   const {data, error, isLoading} = useGetAllPostsQuery();
-  // @ts-ignore
+
   const pagesArray = Array(data?.totalPages)
     .fill(0)
     .map((_, index) => index + 1);
+
+  const [page, setPage] = useState(1);
+
+  const onPageClickHandler = (num: number) => {
+    return setPage(num);
+  };
 
   return (
     <Box>
@@ -45,13 +52,11 @@ export default function PostList() {
           </Grid>
           <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <Button variant="outlined">prev</Button>
-            {pagesArray.map((pageIndex, index) => {
-              return (
-                <Button key={index} variant="outlined">
-                  {pageIndex}
-                </Button>
-              );
-            })}
+            {pagesArray.map((pageIndex, index) => (
+              <Button key={index} variant="outlined" onClick={() => onPageClickHandler(pageIndex)}>
+                {pageIndex}
+              </Button>
+            ))}
             <Button variant="outlined">next</Button>
           </Box>
         </>
