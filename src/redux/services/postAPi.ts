@@ -13,6 +13,24 @@ type Posts = {
   totalPages: number;
 };
 
+type Tags = {
+  id: string;
+  name: string;
+};
+
+type TagsData = {
+  docs: Tags[];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: null | boolean | number;
+  nextPage: null | boolean | number;
+};
+
 export const blogApi = createApi({
   reducerPath: 'blogApi',
   baseQuery: fetchBaseQuery({
@@ -22,7 +40,13 @@ export const blogApi = createApi({
     getAllPosts: builder.query<Posts, number>({
       query: (page = 1) => `posts?limit=6&page=${page}`,
     }),
+    getPostsByTag: builder.query<Posts, string>({
+      query: tag => `posts?where[tags.name][equals]=${tag}&limit=6&page=1`,
+    }),
+    getAllTags: builder.query<TagsData, void>({
+      query: () => `tags`,
+    }),
   }),
 });
 
-export const {useGetAllPostsQuery} = blogApi;
+export const {useGetAllPostsQuery, useGetPostsByTagQuery, useGetAllTagsQuery} = blogApi;
