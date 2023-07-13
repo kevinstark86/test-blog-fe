@@ -41,7 +41,6 @@ export default function Post({postData}: InferGetServerSidePropsType<typeof getS
   // @ts-ignore
   const stats = wordCounter(postData.content);
   const time = readingTime(stats);
-  console.log('reading time info', time);
 
   return (
     <Container

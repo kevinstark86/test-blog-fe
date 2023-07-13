@@ -9,9 +9,10 @@ type RichTextNode = {
 };
 
 export function postSnippet(content: RichTextNode[], wordLimit: number): string {
-  let snippet: string[] = [];
+  const snippet: string[] = [];
 
   function helper(nodes: RichTextNode[]) {
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
 

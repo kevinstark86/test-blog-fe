@@ -48,7 +48,6 @@ export default function SimpleCard({id, title, img, publishedDate, author, conte
 
   // @ts-ignore
   const description = postSnippet(content, 25);
-  console.log('here is the description', description);
 
   return (
     <Grid item xs={12} md={6} lg={4}>

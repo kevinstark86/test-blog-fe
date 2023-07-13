@@ -1,9 +1,6 @@
-import type {GetServerSideProps, InferGetServerSidePropsType} from 'next';
-import {useAppSelector, useAppDispatch} from '@/redux/store/hooks';
 import {Box, Container, Typography} from '@mui/material';
 
 export default function Redux() {
-  const posts = useAppSelector(state => state.posts.data);
   return (
     <Container sx={{paddingTop: 10, paddingBottom: 10, backgroundColor: 'lightskyblue'}}>
       <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

@@ -19,6 +19,7 @@ export default function TextParser({content}: NodeTypes) {
       {content.map((node, index) => {
         if (Text.isText(node)) {
           let text = (
+            // eslint-disable-next-line react/no-danger
             <span key={index} dangerouslySetInnerHTML={{__html: replaceEscapes(node.text)}} />
           );
           if (node.bold) {
