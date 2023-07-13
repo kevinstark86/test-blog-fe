@@ -9,7 +9,7 @@ import {Box, CircularProgress, Grid, Typography, Button} from '@mui/material';
 
 export default function PostList() {
   const [page, setPage] = useState(1);
-  const [tag, setTag] = useState('SEO');
+  const [tag, setTag] = useState('');
 
   let data;
   let error;
