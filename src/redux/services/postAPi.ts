@@ -2,6 +2,15 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 type Posts = {
   docs: [];
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  limit: number;
+  nextPage: number;
+  page: number;
+  pagingCounter: number;
+  prevPage: null | boolean | number;
+  totalDocs: number;
+  totalPages: number;
 };
 
 export const blogApi = createApi({
